@@ -136,7 +136,7 @@ Different domains, different rules:
 - **Code review gate**: Ethos = test suite passes, type safety, no regressions. Logos checks the tests. Pathos suggests refactors.
 - **Research gate**: Ethos = peer-reviewed sources, no contradictions with existing knowledge. Logos verifies citations. Pathos proposes novel connections.
 - **Scientific experimentation gate**: Ethos = hypothesis with measurable predictions, reproducible methodology. Logos validates against existing results. Pathos designs new experiments.
-- **Trading gate**: Ethos = risk limits, position sizing, drawdown constraints. Logos checks the math. Pathos explores new strategies.
+- **Financial modeling gate**: Ethos = risk limits, position sizing, drawdown constraints. Logos checks the math. Pathos explores new strategies.
 - **Code evolution gate**: Ethos = fitness function with measurable output. Logos checks that the evolved code passes. Pathos proposes what to evolve.
 
 ### 3. Set the Evidence (Research Corridors)

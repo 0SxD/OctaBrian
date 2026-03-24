@@ -148,7 +148,7 @@ Confidence: 0.85 (Agents_Arcs + Anthropic docs alignment).
 ### Immediate (no infrastructure required)
 
 **1. Add `memory/CLAUDE.md` to each project brain**
-- File: `C:\apps_ai\OpenBrainLM\memory\CLAUDE.md`, `C:\apps_ai\trading_bot_build_2026\memory\CLAUDE.md`, etc.
+- File: `[project]/memory/CLAUDE.md` in each project directory.
 - Content: file structure, what each memory file contains, grep conventions, frontmatter schema.
 - This is the "nested signpost" pattern from Agents_Arcs. Zero cost to implement.
 
