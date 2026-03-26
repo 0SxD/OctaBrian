@@ -6,92 +6,78 @@
 
 ## What Is This
 
-An open-source LM plug-in brain. Built from biomimicry and emergent Nicomachean
-ethical conflict resolution.
+A harness for large language models. Three parts: Trinity (dialectic reasoning),
+Memory (persistence across sessions), Self-Learning Loop (research + verification).
 
-- **Mind** (Trinity dialectic: Logos fights Pathos, Ethos arbitrates) + **Brain** (Neural_ARC, SPAUN 2.0) = **OpenBrain**
-- 8 operational layers derived from real biological mechanisms
-- 8 cognitive agents named for the biological functions they ARE (SPAUN-derived, self-evolving)
-- 8 curated brain regions (local knowledge store)
-- LM-agnostic — pluggable backends, zero vendor lock-in
+The harness is MD files, rules, skills, hooks, memory, and agent dispatch.
+LM-agnostic — works with any backend.
 
 ## Owner
 
 See parent `C:\apps_ai\CLAUDE.md` for owner profile.
 
-## Architecture (8 Layers)
+## The Harness (What's Operational)
 
-| Layer | Name | Biology | Status |
-|---|---|---|---|
-| L1 | Active Sensing | Octopus + Rat Whiskers | BUILT |
-| L2 | Ganglion | Octopus Arms | BUILT |
-| L3 | Stigmergy + Swarm | Insect Hive | BUILT |
-| L4 | Action Selection | Basal Ganglia + Thalamus | BUILT |
-| L5 | Memory (Hippocampus) | Hippocampus | BUILT |
-| L6 | Relevance Detection | Amygdala + Quorum | BUILT |
-| L7 | Chromatophore | Octopus Skin Display | BUILT |
-| L8 | Pathos | Human Default Mode Network | BUILT |
+### Trinity Mode
+- **Ethos** — evidence corridors + rules + evaluation criteria (set per task)
+- **Pathos** — the mission (Opus doing work, managing agents and memory)
+- **Logos** — the gates (Sonnet agent checking work against Ethos)
+- Trinity is a DIALECTIC, not a pipeline. The structured disagreement IS the reasoning.
+- **Spec:** `memory/trinity_mode_spec.md` — AUTHORITATIVE
 
-Cross-cutting: Prediction Error, Hebbian Plasticity (STDP), Interoception, Cerebellum Timing.
+### Memory
+- `memory/short_term.md` — session activity ledger
+- `memory/long_term.md` — verified findings (consolidated from short_term)
+- `memory/todos.md` — persistent task list
+- `memory/connections.md` — what works/doesn't, cross-refs
+- Auto-consolidation at session breakpoints and end
 
-## 8 Cognitive Agents
+### Self-Learning Loop
+- corridor → verify → cite → save → explore/learn
+- Corridors: NotebookLM (1-2 assigned), arXiv, GitHub, Context7
+- Source hierarchy: arXiv → top-tier academics → open source GitHub
+- Loop count and depth set per task
 
-| Agent | Biological Analogue | Function |
-|---|---|---|
-| hippocampus | Hippocampus | Memory routing, Hebbian learning (L5) |
-| explorer | Exploratory circuits | Learning, knowledge acquisition |
-| verifier | Prediction error (Friston) | Error detection, claim validation |
-| immune | Immune system | Adversarial challenge, threat detection |
-| prefrontal | Prefrontal cortex | Metacognition — who watches the watchers |
-| morphogen | Octopus RNA editing | Self-modification, neuroplasticity |
-| consolidator | Glial cells | Memory consolidation, sleep cycle |
-| homeostasis | Autonomic nervous system | Self-maintenance, integrity regulation |
-
-10 more agents will be derived from the symbiosis of neurology and
-Nicomachean Ethics heuristic taxonomy as the brain matures.
+### Rules
+1. **No public actions without explicit approval.** (rule 00)
+2. **Trinity is a DIALECTIC, not a pipeline.** Logos and Pathos fight. Ethos provides the corridors and criteria.
+3. **Always cite.** No claims without third-party sources.
+4. **Append-only memory.** Never delete from long-term. Overflow to archival.
+5. **ASK before expanding scope.** Corridors, notebooks, research direction — ASK if not specified.
 
 ## Key Files
 
 | File | Purpose |
 |---|---|
-| `ARCHITECTURE.md` | Full tech spec + system diagrams |
-| `OPERATIONAL_LAYERS.md` | Full 8-layer biology spec |
-| `WHAT_IS_OPENBRAIN.md` | Philosophy and "why" |
-| `openbrainlm/registry.py` | 8 agents + 8 brain regions |
-| `openbrainlm/core/trinity.py` | Trinity dialectic engine |
-| `openbrainlm/agents/hippocampus.py` | L5 Hippocampal memory routing agent |
-| `openbrainlm/bridge.py` | Spinal cord — pluggable backends |
-| `openbrainlm/orchestrator.py` | Ignition protocol + layer orchestration |
-| `tests/` | Test suite (135 tests) |
-| `docs/specs/SELF_EVOLUTION_LOOP.md` | Sleep cycle + morphogen fitness + knowledge promotion |
-| `docs/specs/EPIMORPHIC_REGENERATION.md` | Blastema sandbox + autotomy |
-| `docs/specs/ALLOSTATIC_DECISION_GATE.md` | 4-tier allostatic escalation |
+| `OPEN_BRAIN.md` | Core principles (append-only) |
+| `memory/trinity_mode_spec.md` | Trinity Mode operational spec |
+| `memory/short_term.md` | Session activity |
+| `memory/long_term.md` | Verified findings |
+| `memory/todos.md` | Persistent tasks |
+| `memory/connections.md` | Cross-refs, what works/doesn't |
 
-## Rules (supplement parent CLAUDE.md)
+## Archived Vision (concept papers — NOT operational)
 
-1. **Biomimicry first.** Every layer derives from a real biological mechanism. Nothing invented. Everything assembled.
-2. **Inhibition-by-default.** Default state = all actions suppressed (basal ganglia model). Actions are RELEASED, not activated.
-3. **Brain regions, not file cabinets.** Route queries by semantic salience, not brute search. Hippocampus agent handles routing.
-4. **Trinity is a DIALECTIC, not a pipeline.** Logos and Pathos fight. Ethos arbitrates. The fight IS the productive mechanism.
-5. **Append-only knowledge.** Never delete from brain memory. Overflow to long-term storage.
-6. **Quarantine before promotion.** New research → quarantine → immune agent verifies → then promote to domain region.
-7. **Biological names only.** Agents are named for the cognitive function they ARE. No tech labels, no domain names.
-8. **OPEN_BRAIN.md in every region.** Queen pheromone — every brain region must contain the master brain document.
+The repo also contains concept papers and a Python CLI for the full vision:
+- 8-layer architecture, biological naming, cognitive agents — concept papers only
+- Python CLI (`python -m openbrainlm`) — standalone demo, 135 tests pass, agents are stubs
+- Concept papers: `docs/concept_papers/01-04`
+- Architecture specs: `ARCHITECTURE.md`, `OPERATIONAL_LAYERS.md`
+- These are PUBLIC in the repo but are NOT the operational harness
+
+**Do NOT mix vision language into operational work.** No biological naming,
+no "queen pheromone", no "hippocampal", no "basal ganglia" in operational context.
 
 ## Source of Truth Hierarchy
 
-1. Real biology (papers, books in Neural_ARC)
-2. `OPERATIONAL_LAYERS.md` (architecture spec)
-3. `OPEN_BRAIN.md` (master brain document)
-4. Code (implements the above)
+1. `memory/trinity_mode_spec.md` (how the harness works)
+2. `OPEN_BRAIN.md` (core principles)
+3. Rules (`~/.claude/rules/`)
+4. Memory files (accumulated findings)
 
 ## Dependencies
 
-- Python 3.10+ (stdlib only — zero external dependencies for core alpha)
-- Pluggable backends for knowledge, agents, notifications (bridge.py)
-- Phase 1: semantic-router (MIT), HippoRAG (open), Qdrant/LanceDB (Apache-2.0)
-- Phase 2: DebateLLM (Apache-2.0), CraniMem (paper), snnTorch (MIT), Kotaemon (Apache-2.0)
-- Phase 3: pymdp (MIT), neat-python (BSD-3), LangGraph (MIT), Letta (Apache-2.0)
-- See `IMPLEMENTATION_PLAN.md` for full 86-repo component map and integration sequence
-- Execution sequence: `docs/specs/SELF_EVOLUTION_LOOP.md`. Escalation logic: `docs/specs/ALLOSTATIC_DECISION_GATE.md`.
-- **License rule**: Core brain = MIT/Apache/BSD only. GPL isolated via wrapper, never imported directly.
+- Python 3.10+ (stdlib only for core)
+- Claude Code (hooks, rules, skills, agent dispatch)
+- NotebookLM MCP (evidence corridors)
+- No additional infrastructure required for the harness

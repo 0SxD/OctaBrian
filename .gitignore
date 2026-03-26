@@ -44,7 +44,14 @@ credentials.json
 *.key
 *.pem
 
-# Internal — not for public repo
+# Internal — local config and session state
 docs/superpowers/
 memory/
 .claude/
+.gemini/
+
+# Temporary research gate evidence (auto-generated, not source)
+/research.md
+
+# Git worktrees (parallel agent isolation)
+_worktrees/
