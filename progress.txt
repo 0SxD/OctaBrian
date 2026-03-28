@@ -299,10 +299,95 @@
 
   HANDOFF: memory/handoff_session36_mlflow.md
 
-[2026-03-27T20:00:00Z] [NEXT] Session 37: Execute MLflow + wire NT audit gates
-  1. Run convert_bundles_to_mlflow.py (sandbox venv) — register models
-  2. Run verify_mlflow_models.py (NT venv) — verify load + predict
-  3. Wire 3-layer audit gates for NT project
-  4. Implement runtime_smoke_test.py PostToolUse hook (global)
-  5. Complete MLflow Phases 6-8 (AST hook, guardrails, memory)
-  6. Apply SJM bug fixes + resume causal audit Phases 3-6
+[2026-03-27T23:00:00Z] [COMPLETE] Session 37: MLflow Pipeline + NT Git + GitHub Airlock
+  MLflow (all PASS):
+  - Conversion: 2 bundles → 6 model versions, champion aliases on v2 (March/Oct)
+  - Verification: ALL CHECKS PASSED — types, params, predict_online, no pickle/torch
+  - model_loader: end-to-end OK (Long λ=220, Short λ=100, Scaler 7 features)
+  - 4 fixes applied: 3 ZCR (tempfile, error handling, n_features) + artifact_path deprecation
+  - 7 syntax fixes in verify script (unterminated string literals)
+
+  NT Git + Audit Gates:
+  - git init C:/apps_ai/nautilus_trader/ (was subdirectory of C:/apps_ai/.git)
+  - 3-layer audit gates wired: write guard, read blocker, audit reminder
+  - Pre-commit hook installed and tested (blocked without receipt → passed with)
+  - GitHub: 0SxD/nautilus-trader PRIVATE, commit ae3bd53 (63 files)
+
+  OB GitHub:
+  - Pushed commit b13d923 (progress, docs/templates, scripts)
+
+  Clock Skew Bug (NOT FIXED):
+  - Hook runner date +%s ~8000s ahead of bash — write permit validation breaks
+  - Workaround: compensate timestamp or temporarily disable guard
+
+  HANDOFF: memory/handoff_session37_mlflow_complete.md
+
+[2026-03-28T03:00:00Z] [COMPLETE] Session 38: Pipeline Audit + SJM/Indicator Deep Review
+  Brainstorming:
+  - 43-finding pipeline audit from Sage integrated (7 domains, 3 critical fixes)
+  - Design spec: docs/superpowers/specs/2026-03-27-session38-pipeline-audit-design.md
+  - Implementation plan: docs/superpowers/plans/2026-03-27-session38-track1-track2.md
+  - Approach B (two-track parallel) approved and executed
+
+  Track 1 — Infrastructure (COMPLETE):
+  - MLflow Phase 6: Semgrep execution guard rule (nt-no-toplevel-engine-run)
+  - MLflow Phase 7: 5 custom Semgrep rules in NT/.semgrep/nt_safety.yml
+  - MLflow Phase 8: Memory files updated (long_term, connections, todos)
+  - 43-finding audit reference: NT/docs/pipeline_audit_43_findings.md (514 lines)
+  - AST guard research: Semgrep pattern-not-inside is industry standard (Flask reference)
+
+  Track 2 — SJM + Indicator Review (COMPLETE, AT SAGE GATE):
+  - File inventory: 148 SJM scripts, 32 indicator modules, 6 model artifacts, 529 result files
+  - Indicator review: 5/7 CORRECT, 1 naming caveat, 1 SUSPECT (obv_osc — 3 incompatible patterns)
+  - SJM review: 4 contaminated predict() OOS sites, 5 valid predict_online() sites
+  - CRITICAL: Production pipeline (run_shadow_b_multimonth_train.py) uses predict() on ALL windows including eval
+  - CRITICAL: Locked June model requires 7 features, clean-API produces 6 (dimension mismatch)
+  - Clean scripts confirmed: sjm_oos_june_clean + sjm_gated_sim_june use correct pattern
+  - Full report: research/sjm_indicator_review_2026-03-27.md (800+ lines)
+
+  Waiting on Sage:
+  1. Resolve 7-feature question (retrain with 6, use Pattern B for 7, or March/Oct only)
+  2. Which clean scripts become NT reference baseline
+  3. Whether jumpmodels audit (2C) proceeds as-planned
+  4. Then: convergence (3 pipeline fixes) → SJM in NT → DTMC check
+
+  Not done this session:
+  - Semgrep rule test verification (agent dispatched, pending)
+  - Clock skew bug (deferred)
+  - Git commits/pushes (Sage directive: no public actions)
+
+[2026-03-28T03:00:00Z] [GATE] Waiting for Sage review of Track 2 findings before convergence work
+
+  HANDOFF: memory/handoff_session38_pipeline_audit.md
+
+  Sage Decisions (confirmed):
+  - Option B: 7-feature pipeline (append obv_osc) to match locked model
+  - Clean scripts as NT reference: sjm_oos_june_clean + sjm_gated_sim_june
+  - jumpmodels audit (2C) FIRST before proceeding
+  - 3 pipeline fixes researched against official docs before applying
+
+[2026-03-28T03:30:00Z] [COMPLETE] Session 39: Audit + GitHub Sandbox + Pipeline Fixes
+  Session review: 12 outstanding items from sessions 36-38
+  Audit: findings report CONDITIONAL PASS (3 arithmetic issues), 43-finding doc FAIL (only 20)
+  GitHub: sjm-sandbox repo created (0SxD/sjm-sandbox PRIVATE, 832 files, 4 branches)
+    - Branches: master, sandbox/visuals, sandbox/regimes, sandbox/repos
+    - Sage flagged junk in repo — cleanup needed session 40
+  jumpmodels 2C: CONFIRMED CAUSAL (greedy forward DP, no backward traceback)
+    - CRITICAL: transmat_ NOT on SparseJumpModel — use .jm_ins.transmat_
+  Pipeline fixes: FIX-01 already correct, FIX-02 applied (np.where), FIX-03 applied (12 files)
+    - 13 modified files need 3-agent audit before commit
+  7-feature pattern: clean scripts use 6 (in-place), locked model expects 7 (Pattern B append)
+  Precompute script: NOT WRITTEN (agents blocked by permit expiry — spec ready in handoff)
+
+  NOT DONE: precompute script, 3-agent audit on fixes, GitHub cleanup, NT repo update, Semgrep test
+
+  HANDOFF: memory/handoff_session39_github_cleanup.md
+
+[2026-03-28T08:30:00Z] [NEXT] Session 40: GitHub cleanup + audit gate + precompute script
+  1. Run 3-agent audit on 13 modified NT files
+  2. Clean sjm-sandbox repo (remove junk, tighten .gitignore)
+  3. Update NT repo on GitHub (push audited changes)
+  4. Write precompute_sjm_regime.py (spec in handoff)
+  5. Audit precompute script
+  6. Fix findings report arithmetic (3 ZCR issues)
+  7. Rename 43-finding doc (actually 20)
