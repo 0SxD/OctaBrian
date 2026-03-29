@@ -383,11 +383,57 @@
 
   HANDOFF: memory/handoff_session39_github_cleanup.md
 
-[2026-03-28T08:30:00Z] [NEXT] Session 40: GitHub cleanup + audit gate + precompute script
-  1. Run 3-agent audit on 13 modified NT files
-  2. Clean sjm-sandbox repo (remove junk, tighten .gitignore)
-  3. Update NT repo on GitHub (push audited changes)
-  4. Write precompute_sjm_regime.py (spec in handoff)
-  5. Audit precompute script
-  6. Fix findings report arithmetic (3 ZCR issues)
-  7. Rename 43-finding doc (actually 20)
+[2026-03-28T12:00:00Z] [COMPLETE] Session 40: Audit Gate + FIX-02 Completion + Hook Fixes + GitHub Push
+  3-agent audit on 13 NT files: FIX-03 PASS (all 12), FIX-02 FAIL → fixed → re-audited → PASS
+  ZCR critical find: aggressor_side computed but never used (dead code) — wired into df['side']
+  Both ZCR + CodeRabbit verified against installed wranglers.pyx source independently
+  Hook bug #1: opus_write_guard.sh backslash path exemption (Windows \, grep matched / only)
+  Hook bug #2: opus_write_guard.sh clock skew (date +%s ~32,000s ahead in hook runner)
+  Hook fix: [/\] for paths, stat -c %Y + python time.time() for clock, echo "0" fallback
+  ZCR caught fallback reintroducing clock skew → fixed to fail-open
+  Semgrep: CLEAN on all hooks (0 findings) + CLEAN on fix files (2 pre-existing pickle)
+  GitHub pushed: NT d0c0063 (20 files), OB f12fe3d (3 files)
+  Todos updated: FIX-01 VERIFIED, FIX-02 DONE, FIX-03 DONE, REV-2C DONE, SJM-NT-02 DONE
+
+  PIVOT: Sage switching to Option A (retrain with new ML framework + method)
+  Using everything we've built. SJM still involved. New sandbox with full audit rules.
+
+  HANDOFF: memory/handoff_session40_option_a_pivot.md
+
+[2026-03-28T15:00:00Z] [COMPLETE] Session 41: Option A Brainstorm + Infrastructure
+  Planning:
+  - Full Option A brainstorm with Sage (LLM-guided indicator selection pipeline)
+  - Tools: mRMR (feature-engine) pre-screener → OPRO/ReEvo optimizer → SJM regime → NT BacktestEngine
+  - Design spec: docs/superpowers/specs/2026-03-28-option-a-llm-indicator-pipeline-design.md
+  - Spec has placeholders for: indicators, training regime, groupings, SJM configs
+  - Two models (Long/Short), multiple approaches (LLM-pure, hybrid, non-LLM), step-by-step with Sage
+
+  Infrastructure:
+  - PostCompact hook wired (SessionStart compact matcher re-injects brainstem)
+  - Conditional if on audit gate (only fires on git commit*, not every Bash)
+  - Tool Search confirmed already active
+  - Packages installed in NT venv: feature-engine 1.9.4, mrmr_selection 0.2.8, xgboost 3.2.0, shap 0.51.0
+  - Full indicator inventory: 3 registries, 50+ modules, 10 groups, 13 sweep scripts
+  - DTMC boolean pairs found (locked winner: price_bb_extend × bb_fib_extend)
+  - June SJM clean scripts found (2 copies each)
+  - NT readiness: 9/10 PASS (bars_30s/ missing)
+
+  Research Gate v2 designed (Sage-approved):
+  - Approved-source whitelist (.claude/approved_sources.json)
+  - URL citation enforcement (not just text length)
+  - Cross-cwd fix (resolve relative to target project)
+  - Mechanically enforces "planning mode before code"
+
+  HANDOFF: memory/handoff_session41_option_a_brainstorm.md
+
+[2026-03-28T15:00:00Z] [NEXT] Session 42: OB Guardrails Fix
+  1. Build research gate v2 (whitelist + URL enforcement + cross-cwd fix)
+  2. Test all 9 hooks
+  3. Wire subagent persistent memory
+  4. Create approved_sources.json (Sage approves entries)
+
+[2026-03-28T15:00:00Z] [NEXT] Session 43: NT-Focused
+  1. Tear down sjm-sandbox, create new clean sandbox
+  2. Test existing modules (import/run, no training)
+  3. Indicator visual setup (Sage must see before code touches)
+  4. Wire to NT (bars_30s, BacktestEngine, strategy class)
