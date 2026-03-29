@@ -426,6 +426,34 @@
 
   HANDOFF: memory/handoff_session41_option_a_brainstorm.md
 
+[2026-03-28T21:00:00Z] [COMPLETE] Session 42: Audit + Guardrails Fix + Plugin Install
+  Audit gate path fix: copied audit_gate_check.sh to global hooks, tested 3/3 PASS
+  First real audit gate PASS on commit: 36577ce (progress.txt update)
+  ZCR: WORKING (CONDITIONAL PASS on opus_write_guard.sh, 3 critical + 5 flags)
+  Semgrep: WORKING (0 findings on hooks)
+  CodeRabbit: UNINSTALLED (CLI was never installed, plugin was fake Sonnet fallback)
+  22 archived rules moved out of loading path (~3K tokens saved/session)
+  GitHub push: 36577ce → 0SxD/OpenBrainLM main
+  .claude/*.json auto-approve added to permissions
+  validate_research.py FIXED (4 bugs + 2 audit rounds):
+    - Cross-cwd: resolve_project_root() from target file, not os.getcwd()
+    - Citation quality: URL regex + APPROVED_DOMAINS whitelist (9 domains)
+    - Citation logging: .claude/research_citations.log (append-only, TSV)
+    - Denial message: corrected to say only research.md at project root
+    - PROJECT_ROOT env bypass removed (ZCR critical finding)
+  auto_reviewer_trigger.sh: exit 0 → exit 2 (real gate, not nudge)
+  3 plugins installed: dev-process-toolkit, deep-plan, autoresearch
+  ecc-agentshield installed + scan: Grade D (43/100), 39 HIGH (permission bloat)
+  Ralph cloned to ~/.ralph
+  Repos list saved: memory/repos_to_evaluate.md
+
+  Sage directives:
+  - OpenBrainLM manages ALL projects (umbrella governance)
+  - Plugin fork on hold (Sage researching Hermes agent, open resources)
+  - trading_bot_build_2026 is OLD — DO NOT TOUCH
+  - NT = nautilus_trader ONLY
+  - Only open source with 1K+ GitHub stars
+
 [2026-03-28T15:00:00Z] [NEXT] Session 42: OB Guardrails Fix
   1. Build research gate v2 (whitelist + URL enforcement + cross-cwd fix)
   2. Test all 9 hooks
