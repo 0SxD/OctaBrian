@@ -1,4 +1,4 @@
-# OpenBrainLM -> PUBLIC VERSION (coming...) "OctaBrian_v1.01"
+# OctoBrian -> PUBLIC VERSION (coming...) "OctaBrian_v1.01"
 
 **A brain harness for large language models.**
 
@@ -10,7 +10,7 @@ Built from real neuroscience. Not metaphors — mechanisms.
 
 ## What It Does
 
-OpenBrainLM is a **brain-shaped harness** that wraps around any LLM and gives it:
+OctoBrian is a **brain-shaped harness** that wraps around any LLM and gives it:
 
 ### 1. A Brainstem (Hooks + Rules + Inhibition)
 Every action passes through a brainstem — hooks that fire before and after tool use, rules that enforce discipline, inhibition-by-default (basal ganglia model: actions are *released*, not activated). The harness prevents the LLM from acting without thinking.
